@@ -12,7 +12,7 @@ In the experiment, Udacity tested a change (called "free trial screener") where 
 
 The hypothesis is that this might set clearer expectations for students upfront, thus reducing the number of students who enroll in the free trial and then leave because they realize they don't have enough time, without significantly decreasing the number of students that continue past the free trial and eventually complete the course. If this hypothesis holds true, Udacity can improve the overall student experience and improve coaches' capacity to support students who are likely to complete the course, as fewer coaching resources are spent on students that end up leaving the course during the free-trial phase (and therefore before making at least one payment).
 
-## Experiment Design
+## Experimental Design
 
 We are going to test the introduction of the free trial screener using an A/B experiment. One subset of students, called "experiment group", will be shown the free trial screener when clicking the "Start free trial" button on the course overview page (they will be asked how much time they can devote to the course etc), while another subset of students, called "control group", will not be shown the free trial screener (after clicking the "Start free trial" button they will directly be prompted to provide credit card information). Let us start by defining the hypothesis we want to test using this A/B experiment.
 
@@ -150,10 +150,10 @@ Since all sanity checks are passed, we can move on to the evaluation metrics.
 
 For each evaluation metric we construct the 95% confidence interval around the difference between experiment and control and check whether the interval includes zero (if it doesn't, the difference is statistically significant) and whether the interval includes *dmin* (if it doesn't, the difference is also practically significant). The results are (see the code for the detailed calculation):
 
-|                  | Control  | Experiment | Difference | Lower CI  | Upper CI  | Pract Diff | Stat Pass | Pract Pass |
-|------------------|----------|------------|------------|-----------|-----------|------------|-----------|------------|
-| Gross Conversion | 0.218875 | 0.198320   | -0.020555  | -0.029123 | -0.011986 | -0.013     | Yes       | No         |
-| Net Conversion   | 0.117562 | 0.112688   | -0.004874  | -0.011605 | 0.001857  | 0.010      | No        | No         |
+|                  | Control  | Experiment | Difference | Lower CI  | Upper CI  |  dmin  | Stat Pass | Pract Pass |
+|------------------|----------|------------|------------|-----------|-----------|--------|-----------|------------|
+| Gross Conversion | 0.218875 | 0.198320   | -0.020555  | -0.029123 | -0.011986 | -0.013 | Yes       | No         |
+| Net Conversion   | 0.117562 | 0.112688   | -0.004874  | -0.011605 | 0.001857  | 0.010  | No        | No         |
 
 We observe that the difference in gross conversion between experiment and control is statistically significant at the 95% confidence level, but is not practically significant. On the other hand, the difference in net conversion is neither. Before drawing our conclusions and making our recommendation, let us perform a sign test on the day-to-day breakdown of the data. 
 
@@ -163,7 +163,7 @@ Since the data are in the form of number of pageviews, clicks, enrollments, and 
 
 For **gross conversion**, on 19 days (out of 23) the control is higher than the experiment. The associated p-value (two-tailed) is: 0.0026, which is below 0.05 and therefore at the 95% confidence level we can reject the null hypothesis that there is no difference between control and experiment. For **net conversion**, on 13 days out of 23 the control is higher than the experiment. The p-value is 0.6776, which is greatly above 0.05 and therefore we cannot reject the null hypothesis. These results agree with the effect size test, which showed statistical significance for the difference in gross conversions but not for net conversions.
 
-## Recommendation
+## Recommendation and Follow-up
 
 The results of the experiment indicate that the introduction of the free-trial screener leads to a decrease in gross conversion (proportion of students who enroll in the free trial) that is unlikely to be due to chance. At the 95% confidence level, this decrease is in the range [-5.5%,-13.3%]. Given the observed results, the minimum practical significance we set before the experiment translates to -5.9%, which is within the obtained range and therefore we cannot exclude that the difference might actually be slightly lower than that. On the other hand, the free-trial screener does not significantly increase the net conversion, i.e. the proportion of students who remain enrolled past the free trial. At the 95% confidence level, the difference in net conversion is in the range [-9.9%,1.6%], which includes zero and therefore does not allow us to reject the null hypothesis. From a business standpoint, launching the proposed free-trial screener would make sense only if it led to a noticeable decrease in gross conversion accompanied by a noticeable increase in net conversion. For this reason, my recommendation is to **not** roll out the free-trial screener feature, as the observed data do not support the initial business goals.
 
